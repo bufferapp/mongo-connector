@@ -708,7 +708,7 @@ class OplogThread(threading.Thread):
             LOG.debug("OplogThread: oplog is empty.")
             return None
 
-        LOG.debug("OplogThread: %s oplog entry has timestamp %s."
+        LOG.info("OplogThread: %s oplog entry has timestamp %s."
                   % ('Newest' if newest_entry else 'Oldest', ts))
         return ts
 
