@@ -62,7 +62,10 @@ class ReplicationLagLogger(threading.Thread):
             # OplogThread will perform a rollback, don't log anything
             return
         lag_secs = newest_write.time - checkpoint.time
-        datadog.statsd.gauge('mongo_connector.lag.' + self.opman.replset_name, lag_secs)
+        replicaset_name = self.opman.replset_name
+        if replica_set_name == "buffer":
+            replicaset_name = "buffer_0"
+        datadog.statsd.gauge('mongo_connector.lag.' + replicaset_name, lag_secs)
         if lag_secs > 0:
             LOG.info("OplogThread for replica set '%s' is %s seconds behind "
                      "the oplog.",
