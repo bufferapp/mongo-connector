@@ -63,7 +63,7 @@ class ReplicationLagLogger(threading.Thread):
             return
         lag_secs = newest_write.time - checkpoint.time
         replicaset_name = self.opman.replset_name
-        if replica_set_name == "buffer":
+        if replicaset_name == "buffer":
             replicaset_name = "buffer_0"
         datadog.statsd.gauge('mongo_connector.lag.' + replicaset_name, lag_secs)
         if lag_secs > 0:
