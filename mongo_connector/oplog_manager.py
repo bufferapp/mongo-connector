@@ -711,10 +711,10 @@ class OplogThread(threading.Thread):
             LOG.debug("OplogThread: oplog is empty.")
             return None
 
-        long_ts = util.bson_ts_to_long(timestamp)
+        long_ts = util.bson_ts_to_long(ts)
 
         LOG.info("OplogThread: %s oplog entry has timestamp %s (oplog timestamp format: %s)."
-                  % ('Newest' if newest_entry else 'Oldest', ts))
+                  % ('Newest' if newest_entry else 'Oldest', ts, long_ts))
         return ts
 
     def get_oldest_oplog_timestamp(self):
