@@ -65,7 +65,7 @@ class ReplicationLagLogger(threading.Thread):
         replicaset_name = self.opman.replset_name
         if replicaset_name == "buffer":
             replicaset_name = "buffer_0"
-        datadog.statsd.gauge('mongo_connector.lag.' + replicaset_name, lag_secs)
+        datadog.statsd.gauge('mongo_connector.lag', lag_secs, tags=["shard:" + replicaset_name])
         if lag_secs > 0:
             LOG.info("OplogThread for replica set '%s' is %s seconds behind "
                      "the oplog.",
